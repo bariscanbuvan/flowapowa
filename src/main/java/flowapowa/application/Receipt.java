@@ -11,9 +11,9 @@ class Receipt {
     public Receipt() {
     }
 
-    public void addPart(String element, int quantity, double price, float amount) {
+    public void addPart(String productName, int quantity, double price, float amount) {
         Part part = new Part(
-                element,
+                productName,
                 quantity,
                 price,
                 amount
@@ -49,13 +49,13 @@ class Receipt {
     }
 
     private static class Part implements ReceiptLine {
-        protected final String element;
+        protected final String productName;
         protected final float amount;
         private final double price;
         private final int quantity;
 
-        public Part(String element, int quantity, double price, float amount) {
-            this.element = element;
+        public Part(String productName, int quantity, double price, float amount) {
+            this.productName = productName;
             this.price = price;
             this.quantity = quantity;
             this.amount = amount;
@@ -67,8 +67,8 @@ class Receipt {
         }
 
         private String element() {
-            String first = element.substring(0, 1);
-            String last = element.substring(1);
+            String first = productName.substring(0, 1);
+            String last = productName.substring(1);
 
             return first.toUpperCase() + last.toLowerCase();
         }

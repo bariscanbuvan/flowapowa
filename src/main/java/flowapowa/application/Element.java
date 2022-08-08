@@ -1,4 +1,4 @@
 package flowapowa.application;
 
-public record Element(String value, int quantity) {
+public record Element(String productName, int quantity) {
 }
