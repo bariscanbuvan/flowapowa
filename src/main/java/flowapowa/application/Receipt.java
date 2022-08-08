@@ -3,7 +3,6 @@ package flowapowa.application;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 class Receipt {
     private final List<ReceiptLine> parts = new ArrayList<>();
@@ -63,10 +62,10 @@ class Receipt {
 
         @Override
         public String toString() {
-            return String.format(Locale.ROOT, "%-8s %5d %6.2f %7.2f\n", element(), quantity, price, amount());
+            return String.format(Locale.ROOT, "%-8s %5d %6.2f %7.2f\n", productName(), quantity, price, amount());
         }
 
-        private String element() {
+        private String productName() {
             String first = productName.substring(0, 1);
             String last = productName.substring(1);
 
@@ -78,40 +77,4 @@ class Receipt {
         }
     }
 
-    private static final class Total implements ReceiptLine {
-        private final String element;
-        private final float amount;
-
-        private Total(String element, float amount) {
-            this.element = element;
-            this.amount = amount;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.ROOT, "%-20s %8.2f\n", element, amount);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != this.getClass()) return false;
-            var that = (Total) obj;
-            return Objects.equals(this.element, that.element) &&
-                   Float.floatToIntBits(this.amount) == Float.floatToIntBits(that.amount);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(element, amount);
-        }
-
-    }
-
-    private static class Separator implements ReceiptLine {
-        @Override
-        public String toString() {
-            return "-----------------------------\n";
-        }
-    }
 }
